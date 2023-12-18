@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "nvm install --lts && nvm use --lts && next build",
     "start": "next start",
     "lint": "next lint"
   },
