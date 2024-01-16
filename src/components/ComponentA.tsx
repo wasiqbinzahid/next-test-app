@@ -1,10 +1,9 @@
 import { getStuff } from "@/utils/fetcher";
-import { NextComponentType } from "next";
 import React from "react";
-import MyComponent from "./defa/MyComponent";
+import MyComponent from "./MyComponent";
 import { cookies } from "next/headers";
 
-const Component = async ({ children }: React.PropsWithChildren) => {
+const Component = async () => {
   const { data, token: tokenUsed } = await getStuff(2);
   const cookieStore = cookies();
   const token = cookieStore.get("token");

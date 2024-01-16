@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import ComponentA from "./asvasd/ComponentA";
+import Link from "next/link";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,7 +17,26 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ComponentA>{children}</ComponentA>
+        <div>Home is server sided with one client sided component</div>
+        <div>
+          Other components are all client sided except for the layout component
+          that wraps all other components
+        </div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "2rem",
+          }}
+        >
+          <Link href="/home">Home</Link>
+          <Link href="/pageB">Page B</Link>
+          <Link href="/pageC">Page C</Link>
+          <Link href="/pageD">Page D</Link>
+          <Link href="/client">Client Side</Link>
+        </div>
+        {children}
       </body>
     </html>
   );

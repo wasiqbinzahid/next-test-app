@@ -1,15 +1,19 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { setCookie } from "@/utils/fetcher";
 import { Amplify, Auth } from "aws-amplify";
 
-Amplify.configure({
-  Auth: {
-    region: "us-east-2",
-    userPoolId: "us-east-2_YVo9ulIn1",
-    userPoolWebClientId: "63nl0ijviiqocbb2ms6lst1uu8",
-  },
-});
+export function configureAws() {
+  Amplify.configure({
+    Auth: {
+      region: "us-east-2",
+      userPoolId: "us-east-2_YVo9ulIn1",
+      userPoolWebClientId: "63nl0ijviiqocbb2ms6lst1uu8",
+    },
+  });
+}
+
+configureAws();
 
 export interface ResponseData {
   id: string;
@@ -28,15 +32,11 @@ export const MyComponent = ({
   const [componentState, setComponentState] = useState(data);
   const [newAuthToken, setNewAuthToken] = useState("");
   const [logginIn, setLogginIn] = useState(false);
-  useEffect(() => {
-    console.log("running");
-  }, []);
+
   async function loginUser() {
     setLogginIn(true);
     try {
-      console.log("started");
       const user = await Auth.signIn("test@test.com", "Admin@123");
-      console.log("done signing in ", user);
       const token = (await Auth.currentSession()).getIdToken().getJwtToken();
       setNewAuthToken(token);
     } catch (e) {
@@ -57,9 +57,9 @@ export const MyComponent = ({
     setSettingToken(false);
     setNewAuthToken("");
   }
+
   async function loggedInUserData() {
-    const r = await Auth.currentUserInfo();
-    console.log(r);
+    console.log(await Auth.currentUserInfo());
   }
   return (
     <div>
